@@ -6,9 +6,18 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement")]
-    [SerializeField] float moveSpeed;
+    [SerializeField] float walkSpeed;
+    [SerializeField] float sprintSpeed;
     [SerializeField] Transform orientation;
     [SerializeField] float groundDrag;
+    [SerializeField] enum MovementState
+    {
+        walking,
+        sprinting,
+        air
+    }
+    [SerializeField] MovementState state;
+    private float moveSpeed;
 
     float horizontalInput;
     float verticalInput;
@@ -30,6 +39,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Keys")]
     [SerializeField] KeyCode jumpKey = KeyCode.Space;
+    [SerializeField] KeyCode sprintKey = KeyCode.LeftShift;
 
     // Start is called before the first frame update
     void Start()
@@ -45,15 +55,37 @@ public class PlayerMovement : MonoBehaviour
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
 
         MyInput();
-
         Drag();
-
         SpeedControl();
+        StateHandler();
     }
 
     private void FixedUpdate()
     {
         MovePlayer();
+    }
+
+    private void StateHandler()
+    {
+        // Sprinting mode
+        if (grounded && Input.GetKey(sprintKey)) 
+        {
+            state = MovementState.sprinting;
+            moveSpeed = sprintSpeed;
+        }
+
+        // Grounded mode
+        else if (grounded)
+        {
+            state = MovementState.walking;
+            moveSpeed = walkSpeed;
+        }
+
+        // Air mode
+        else
+        {
+            state = MovementState.air;
+        }
     }
 
     private void MyInput()
@@ -115,6 +147,7 @@ public class PlayerMovement : MonoBehaviour
 
         rb.AddForce(Vector3.down * 200f, ForceMode.Force);
     }
+
     private void ResetJump()
     {
         readyToJump = true;

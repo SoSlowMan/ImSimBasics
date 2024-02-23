@@ -304,9 +304,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f6e7c0b12e30974fbc48bceba04e544, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
+  walkSpeed: 7
+  sprintSpeed: 12
   orientation: {fileID: 320166985}
   groundDrag: 5
+  state: 0
   playerHeight: 2
   whatIsGround:
     serializedVersion: 2
@@ -316,6 +318,7 @@ MonoBehaviour:
   airMultiplier: 1
   readyToJump: 0
   jumpKey: 32
+  sprintKey: 304
 --- !u!1 &471602391
 GameObject:
   m_ObjectHideFlags: 0
