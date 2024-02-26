@@ -317,8 +317,12 @@ MonoBehaviour:
   jumpCooldown: 0.25
   airMultiplier: 1
   readyToJump: 0
+  crouchSpeed: 3.5
+  crouchYScale: 0.5
+  maxSlopeAngle: 40
   jumpKey: 32
   sprintKey: 304
+  crouchKey: 306
 --- !u!1 &471602391
 GameObject:
   m_ObjectHideFlags: 0
