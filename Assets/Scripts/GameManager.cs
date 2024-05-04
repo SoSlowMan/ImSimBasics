@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    // TODO: Doesn't work, check and fix
     void Start()
     {
         LockCursor();

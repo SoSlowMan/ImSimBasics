@@ -8,16 +8,11 @@ public class ProjectileAddon : MonoBehaviour
     [SerializeField] private bool targetHit;
     public int damage;
 
-    // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        // Destroy stray bullets after 3 seconds so it won't pollute the scene
+        Invoke("Delete", 3f);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -31,12 +26,23 @@ public class ProjectileAddon : MonoBehaviour
 
         transform.SetParent(collision.transform);
 
-        if (collision.gameObject.tag == "Enemy")
+        switch (collision.gameObject.tag) 
         {
-            Debug.Log("A");
-            Enemy enemy = collision.gameObject.GetComponent<Enemy>();
-            enemy.TakeDamage(damage);
-            Destroy(gameObject);
+            case "Enemy":
+                Debug.Log("A");
+                Enemy enemy = collision.gameObject.GetComponent<Enemy>();
+                enemy.TakeDamage(damage);
+                Delete();
+                break;
+            case "Surface":
+                Debug.Log("B");
+                Delete();
+                break;
         }
+    }
+
+    private void Delete()
+    {
+        Destroy(gameObject);
     }
 }
