@@ -11,6 +11,7 @@ public class GunsScript : MonoBehaviour
 
     //bools
     bool shooting, readyToShoot, reloading; //enum??
+    
 
     // Start is called before the first frame update
     void Start()
