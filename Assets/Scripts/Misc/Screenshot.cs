@@ -6,7 +6,7 @@ public class Screenshot : MonoBehaviour
 {
     //Saves a screenshot when a button is pressed
 
-    public KeyCode screenShotButton;
+    [SerializeField] KeyCode screenShotButton;
 
     private void Awake()
     {
