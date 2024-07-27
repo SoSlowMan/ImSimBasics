@@ -6,6 +6,9 @@ using UnityEngine.EventSystems;
 
 public class PlayerMovement : MonoBehaviour
 {
+    // ahh, sigleton, haven't seen you in a while
+    public static PlayerMovement instance;
+
     [Header("Movement")]
     [SerializeField] float walkSpeed;
     [SerializeField] float sprintSpeed;
@@ -53,6 +56,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] KeyCode jumpKey = KeyCode.Space;
     [SerializeField] KeyCode sprintKey = KeyCode.LeftShift;
     [SerializeField] KeyCode crouchKey = KeyCode.LeftControl;
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     // Start is called before the first frame update
     void Start()

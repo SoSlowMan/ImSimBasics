@@ -38,6 +38,12 @@ public class ProjectileAddon : MonoBehaviour
                 Debug.Log("B");
                 Delete();
                 break;
+            case "Object":
+                Debug.Log("C");
+                Objects objects = collision.gameObject.GetComponent<Objects>();
+                objects.TakeDamage(damage);
+                Delete(); // TODO: add yeild to push back objects???
+                break;
         }
     }
 
