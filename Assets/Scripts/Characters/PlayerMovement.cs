@@ -6,7 +6,6 @@ using UnityEngine.EventSystems;
 
 public class PlayerMovement : MonoBehaviour
 {
-    // ahh, sigleton, haven't seen you in a while
     public static PlayerMovement instance;
 
     [Header("Movement")]
@@ -59,6 +58,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Ceiling")]
     [SerializeField] GameObject ceilingChecker;
+    // TODO: auto uncrawl after going out of the ceiling area
 
     private void Awake()
     {
