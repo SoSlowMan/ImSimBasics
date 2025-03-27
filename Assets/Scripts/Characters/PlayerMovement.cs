@@ -57,6 +57,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] KeyCode sprintKey = KeyCode.LeftShift;
     [SerializeField] KeyCode crouchKey = KeyCode.LeftControl;
 
+    [Header("Ceiling")]
+    [SerializeField] GameObject ceilingChecker;
+
     private void Awake()
     {
         instance = this;
@@ -133,14 +136,12 @@ public class PlayerMovement : MonoBehaviour
 
         if(Input.GetKeyDown(crouchKey))
         {
-            transform.localScale = new Vector3(transform.localScale.x, crouchYScale, transform.localScale.z);
-            // Adjusting the scale goes upwards, so your character will be in the air after pressing the crouch button. Solution: AddForce down
-            rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
+            Crouch();
         }
 
-        if(Input.GetKeyUp(crouchKey))
+        if(Input.GetKeyUp(crouchKey) && !Physics.Raycast(ceilingChecker.transform.position, Vector3.up, 1f))
         {
-            transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
+            UnCrouch();
         }
     }
 
@@ -234,5 +235,17 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 GetSlopeMoveDirection()
     {
         return Vector3.ProjectOnPlane(moveDirection, slopeHit.normal);
+    }
+
+    private void Crouch()
+    {
+        transform.localScale = new Vector3(transform.localScale.x, crouchYScale, transform.localScale.z);
+        // Adjusting the scale goes upwards, so your character will be in the air after pressing the crouch button. Solution: AddForce down
+        rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
+    }
+    
+    private void UnCrouch()
+    {
+        transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
     }
 }
